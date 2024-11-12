@@ -1,0 +1,12 @@
+aws:
+  region: "us-east-1"
+  access_key: "YOUR_ACCESS_KEY"
+  secret_key: "YOUR_SECRET_KEY"
+
+bedrock:
+  model_id: "amazon.titan-text-express-v1"
+  endpoint_url: "https://bedrock.us-east-1.amazonaws.com"
+
+logging:
+  level: "INFO"
+  file: "logs/app.log"
