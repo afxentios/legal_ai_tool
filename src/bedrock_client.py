@@ -10,8 +10,9 @@ class BedrockClient:
     def __init__(self, config):
         self.config = config
         self.client = None
-        self.model_id = config['bedrock']['model_id']
         self.runtime_client = None
+        self.agent_client = None
+        self.model_id = config['bedrock']['model_id']
         self._initialize_client()
 
     def _initialize_client(self):
@@ -40,6 +41,10 @@ class BedrockClient:
             )
             self.runtime_client = session.client(
                 service_name='bedrock-runtime',
+                endpoint_url=self.config['bedrock']['endpoint_url']
+            )
+            self.agent_client = session.client(
+                service_name='bedrock-agent',
                 endpoint_url=self.config['bedrock']['endpoint_url']
             )
         except ClientError as e:

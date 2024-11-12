@@ -2,6 +2,8 @@ aws:
   region: "us-east-1"
   access_key: "YOUR_ACCESS_KEY"
   secret_key: "YOUR_SECRET_KEY"
+  s3_bucket: 'your-s3-bucket-name'  # We need to replace with our S3 bucket name
+  knowledge_base_name: 'My CBC law'
 
 bedrock:
   model_id: "amazon.titan-text-express-v1"
