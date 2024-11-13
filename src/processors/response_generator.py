@@ -1,6 +1,9 @@
 import json
 import logging
 from functools import lru_cache
+from typing import Dict, Any
+
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +26,49 @@ class ResponseGenerator:
                 'type': 'KNOWLEDGE_BASE'
             }
         )
+
+    def invoke_prompt_flow(self, flow_id: str, flow_alias_id: str, node_name: str, node_output_name: str, prompt: str,
+                           enable_trace: bool = False) -> Dict[str, Any]:
+
+        try:
+            # Construct the inputs for the flow
+            # node_name = 'FlowInputNode'
+            # node_output_name = 'FlowOutputNode'
+            # flow_id = 'YPBN39JLIF'
+            # flow_alias_id = '89D6BKWO9C'
+
+            flow_inputs = [
+                {
+                    'nodeName': node_name,
+                    'nodeOutputName': node_output_name,
+                    'content': {
+                        'document': {
+                            'text': prompt
+                        }
+                    }
+                }
+            ]
+
+            # Invoke the prompt flow
+            response = self.bedrock_client.agent_runtime_client.invoke_flow(
+                flowIdentifier=flow_id,
+                flowAliasIdentifier=flow_alias_id,
+                inputs=flow_inputs,
+                enableTrace=False
+            )
+
+            # Process and return the response
+            if 'output' in response:
+                return response['output']
+            else:
+                logger.error("No output returned from prompt flow invocation.")
+                return {}
+        except ClientError as e:
+            logger.error(f"ClientError invoking prompt flow: {e}")
+            return {}
+        except Exception as e:
+            logger.error(f"Unexpected error invoking prompt flow: {e}")
+            return {}
 
     @lru_cache(maxsize=100)  # Adjust maxsize based on expected cache usage
     def generate_response(self, prompt, model_id, anthropic_version, max_tokens, temperature, relevant_kb):
