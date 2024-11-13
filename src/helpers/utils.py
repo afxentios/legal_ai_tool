@@ -17,7 +17,7 @@ def load_config(config_path='config/config.yaml'):
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
         # Construct the absolute path to config.yaml
-        config_path = os.path.join(script_dir, '..', 'config', 'config.yaml')
+        config_path = os.path.join(script_dir, '../..', 'config', 'config.yaml')
 
         # Open and load the YAML configuration file
         with open(config_path, 'r') as file:
