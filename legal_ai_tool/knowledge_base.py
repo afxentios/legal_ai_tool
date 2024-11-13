@@ -1,7 +1,7 @@
 import boto3
+import os
 from botocore.exceptions import ClientError, BotoCoreError
 import logging
-import os
 
 logger = logging.getLogger(__name__)
 
@@ -29,16 +29,6 @@ class KnowledgeBase:
         except (ClientError, BotoCoreError) as e:
             logger.error(f"Failed to upload {file_path}: {e}")
             raise
-
-    def list_documents(self):
-        try:
-            response = self.s3_client.list_objects_v2(Bucket=self.bucket_name)
-            documents = [item['Key'] for item in response.get('Contents', [])]
-            logger.info(f"Retrieved {len(documents)} documents from {self.bucket_name}")
-            return documents
-        except (ClientError, BotoCoreError) as e:
-            logger.error(f"Failed to list documents: {e}")
-            return []
 
     def create_knowledge_base(self):
         try:

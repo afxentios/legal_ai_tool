@@ -1,6 +1,7 @@
 import os
 import boto3
 from botocore.exceptions import ClientError
+from botocore.config import Config
 import logging
 import json
 
@@ -23,10 +24,15 @@ class BedrockClient:
             #     region_name=self.config['aws']['region']
             # )
 
-            # Retrieve AWS credentials from environment variables
-            aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
-            aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
+            # # Retrieve AWS credentials from environment variables
+            # aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
+            # aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
+            # region_name = self.config['aws']['region']
+
+            aws_access_key_id = self.config['aws']['access_key']
+            aws_secret_access_key = self.config['aws']['secret_key']
             region_name = self.config['aws']['region']
+
 
             # Initialize a boto3 session with the retrieved credentials
             session = boto3.Session(
@@ -35,16 +41,28 @@ class BedrockClient:
                 region_name=region_name
             )
 
+            retry_config = Config(
+                region_name=self.config['aws']['region'],
+                retries={
+                    "max_attempts": 10,
+                    "mode": "standard",
+                },
+            )
+
             self.client = session.client(
                 service_name='bedrock',
                 endpoint_url=self.config['bedrock']['endpoint_url']
             )
             self.runtime_client = session.client(
-                service_name='bedrock-runtime',
-                endpoint_url=self.config['bedrock']['endpoint_url']
+                service_name='bedrock-runtime'
+
             )
             self.agent_client = session.client(
                 service_name='bedrock-agent',
+                endpoint_url=self.config['bedrock']['endpoint_url']
+            )
+            self.agent_runtime_client = session.client(
+                service_name='bedrock-agent-runtime',
                 endpoint_url=self.config['bedrock']['endpoint_url']
             )
         except ClientError as e:

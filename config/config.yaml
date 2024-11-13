@@ -1,13 +1,13 @@
 aws:
-  region: "us-east-1"
-  access_key: "YOUR_ACCESS_KEY"
-  secret_key: "YOUR_SECRET_KEY"
+  region: "eu-west-2"
+  access_key: "AKIA4XMRGAHME5DAGKEW"
+  secret_key: "wrWocjCUv9qUCXHNkWocr0axWFROna9CcMRxWN9G"
   s3_bucket: 'your-s3-bucket-name'  # We need to replace with our S3 bucket name
   knowledge_base_name: 'My CBC law'
 
 bedrock:
-  model_id: "amazon.titan-text-express-v1"
-  endpoint_url: "https://bedrock.us-east-1.amazonaws.com"
+  model_id: "anthropic.claude-3-sonnet-20240229-v1:0"
+  endpoint_url: "https://bedrock.eu-west-2.amazonaws.com"
 
 logging:
   level: "INFO"
