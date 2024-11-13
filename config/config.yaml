@@ -1,9 +1,13 @@
 aws:
   region: "eu-west-2"
-  access_key: "AKIA4XMRGAHME5DAGKEW"
-  secret_key: "wrWocjCUv9qUCXHNkWocr0axWFROna9CcMRxWN9G"
-  s3_bucket: 'your-s3-bucket-name'  # We need to replace with our S3 bucket name
-  knowledge_base_name: 'My CBC law'
+  access_key: "add-here"
+  secret_key: "add-here"
+  s3_bucket: 'bed-test-bucket'  # We need to replace with our S3 bucket name
+  knowledge_base_name: 'MyTestLaw'
+  role_arn: 'AmazonBedrockExecutionRoleForKnowledgeBase_vf869'
+  model_arn: 'amazon.titan-embed-text-v2:0'
+  opensearch_collection_arn: "arn:aws:aoss:your-region:your-account-id:collection/your-collection-name"
+  vector_index_name: "bedrock-knowledge-base-default-inde"
 
 bedrock:
   model_id: "anthropic.claude-3-sonnet-20240229-v1:0"

@@ -19,16 +19,6 @@ class BedrockClient:
 
     def _initialize_client(self):
         try:
-            # session = boto3.Session(
-            #     aws_access_key_id=self.config['aws']['access_key'],
-            #     aws_secret_access_key=self.config['aws']['secret_key'],
-            #     region_name=self.config['aws']['region']
-            # )
-
-            # # Retrieve AWS credentials from environment variables
-            # aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
-            # aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
-            # region_name = self.config['aws']['region']
 
             aws_access_key_id = self.config['aws']['access_key']
             aws_secret_access_key = self.config['aws']['secret_key']
@@ -104,8 +94,6 @@ class BedrockClient:
         """
         try:
             response = self.client.list_foundation_models()
-            # models = response.get('ModelSummaries', [])
-            # model_list = [{'ModelId': model['ModelId'], 'ModelName': model['ModelName']} for model in models]
             return response.get('modelSummaries', [])
         except ClientError as e:
             logger.error(f"Failed to list foundation models: {e}")

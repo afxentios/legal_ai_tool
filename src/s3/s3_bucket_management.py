@@ -1,7 +1,7 @@
 import os
 import re
 from typing import Generator, Optional, Dict
-
+from src.helpers.utils import load_config
 import boto3
 from botocore.exceptions import NoCredentialsError, ClientError
 from PyPDF2 import PdfReader
@@ -9,19 +9,16 @@ from PyPDF2 import PdfReader
 # Retrieve AWS credentials from environment variables
 # aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
 # aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
-aws_access_key_id = 'AKIA4XMRGAHME5DAGKEW';
-aws_secret_access_key = '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'
-print(aws_access_key_id)
-print(aws_secret_access_key)
-
-if not aws_access_key_id or not aws_secret_access_key:
-    raise EnvironmentError("AWS credentials are not set in environment variables.")
+#
+# if not aws_access_key_id or not aws_secret_access_key:
+#     raise EnvironmentError("AWS credentials are not set in environment variables.")
+config = load_config()
 
 # Initialize S3 client with environment credentials
 s3_client = boto3.client(
     's3',
-    aws_access_key_id=aws_access_key_id,
-    aws_secret_access_key=aws_secret_access_key
+    aws_access_key_id=config['aws']['access_key'],
+    aws_secret_access_key=config['aws']['secret_key']
 )
 
 # Source and destination bucket names

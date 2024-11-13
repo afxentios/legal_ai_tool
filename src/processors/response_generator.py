@@ -51,6 +51,10 @@ class ResponseGenerator:
                 modelId=model_id
             )
 
+            # With this model you can retrieve a Response for a specific KB
+            # response = self.retrieve_and_generate(prompt , 'hackathon-team2-eur-lex','arn:aws:bedrock:eu-west-2::foundation-model/anthropic.claude-3-haiku-20240307-v1:0')
+            # print(response)
+
             # Read and decode the response body
             if 'body' in response:
                 content_text = None
