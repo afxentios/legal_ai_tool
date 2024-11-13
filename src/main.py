@@ -1,10 +1,10 @@
 import logging
 
 from src.clients.bedrock_client import BedrockClient
+from src.helpers.utils import load_config, setup_logging
 from src.processors.knowledge_base import KnowledgeBase
 from src.processors.query_processor import QueryProcessor
 from src.processors.response_generator import ResponseGenerator
-from src.helpers.utils import load_config, setup_logging
 
 
 def main():

@@ -1,6 +1,7 @@
 import logging
-import yaml
 import os
+
+import yaml
 
 
 # Implement a logging configuration to monitor application behavior and facilitate debugging.
@@ -30,6 +31,7 @@ def load_config(config_path='config/config.yaml'):
     except yaml.YAMLError as e:
         logging.error(f"Error parsing YAML file: {e}")
         raise
+
 
 def setup_logging(config):
     log_level = getattr(logging, config['logging']['level'].upper(), logging.INFO)

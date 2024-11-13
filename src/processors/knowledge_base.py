@@ -1,9 +1,11 @@
-import boto3
-import os
-from botocore.exceptions import ClientError, BotoCoreError
 import logging
+import os
+
+import boto3
+from botocore.exceptions import ClientError, BotoCoreError
 
 logger = logging.getLogger(__name__)
+
 
 class KnowledgeBase:
     def __init__(self, bucket_name, aws_config, bedrock_client):

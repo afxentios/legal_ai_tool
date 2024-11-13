@@ -1,11 +1,12 @@
-import os
-import boto3
-from botocore.exceptions import ClientError
-from botocore.config import Config
-import logging
 import json
+import logging
+
+import boto3
+from botocore.config import Config
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
+
 
 class BedrockClient:
     def __init__(self, config):
@@ -32,7 +33,6 @@ class BedrockClient:
             aws_access_key_id = self.config['aws']['access_key']
             aws_secret_access_key = self.config['aws']['secret_key']
             region_name = self.config['aws']['region']
-
 
             # Initialize a boto3 session with the retrieved credentials
             session = boto3.Session(
